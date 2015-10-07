@@ -273,6 +273,18 @@ cat << CTAG
 						}},'
 					done;
 			fi`
+			`if [ -f "/sys/class/leds/lm3533-lcd-bl/device/bl_hack" ]; then
+			BH=\`$BB cat /sys/class/leds/lm3533-lcd-bl/device/bl_hack\`
+				$BB echo '{ SPane:{
+					title:"LM3533 Backlight Hack"
+				}},
+					{ SCheckBox:{
+						description:"Sets the minimum backlight brightness value to the lowest possible one the panel supports.",
+						label:"Enable",
+						default:'$BH',
+						action:"generic /sys/class/leds/lm3533-lcd-bl/device/bl_hack"
+					}},'
+			fi`
 			`if [ -d "/sys/class/leds" ]; then
 				$BB echo '{ SPane:{
 					title:"LED Control",
